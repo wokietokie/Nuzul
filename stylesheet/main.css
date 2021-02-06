@@ -1,36 +1,37 @@
-html, body {
+body {
   margin: 0;
-  padding: 0;
-  background: #000;
-  height: 100%;
-  width: 100%;
-}
-#confetti{
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
+  overflow: hidden;
 }
 
-
-h1 {
-  line-height: normal;
-  font-family: Varela Round, sans-serif;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 13px;
-  color: #A7AAAE;
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
-  border: 1px solid #A7AAAE;
-  padding: 12px 20px 10px;
-  border-radius: 50px;
-  transition: all .1s ease-in-out;
-  text-transform: uppercase;
+.wrapper {
+  position: relative;
+  min-height: 100vh;
 }
-a.iprodev:hover {
-  background: #A7AAAE;
-  color: white;
+
+[class|="confetti"] {
+  position: absolute;
+}
+
+$colors: (#d13447, #ffbf00, #263672);
+
+@for $i from 0 through 150 {
+  $w: random(8);
+  $l: random(100);
+  .confetti-#{$i} {
+    width: #{$w}px;
+    height: #{$w*0.4}px;
+    background-color: nth($colors, random(3));
+    top: -10%;
+    left: unquote($l+"%");
+    opacity: random() + 0.5;
+    transform: rotate(#{random()*360}deg);
+    animation: drop-#{$i} unquote(4+random()+"s") unquote(random()+"s") infinite;
+  }
+
+  @keyframes drop-#{$i} {
+    100% {
+      top: 110%;
+      left: unquote($l+random(15)+"%");
+    }
+  }
 }
